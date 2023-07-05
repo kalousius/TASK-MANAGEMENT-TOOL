@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <title>Task Management Tool</title>
+</head>
+<body>
+  <div class="container"> 
+    <h1>Task Management Tool</h1>
+    <p id="date-time"></p>
+<script>
+// Get the current date and time
+const today = new Date();
+
+// Display the current date and time on the same line
+const dateAndTimeString = today.toDateString() + " " + today.toLocaleTimeString();
+
+// Output the date and time
+document.getElementById('date-time').innerHTML = dateAndTimeString;
+</script><br>
+    <div class="input-section">
+      <input type="text" id="taskInput" placeholder="Add a task...">
+      <button id="addTaskBtn"><i class="fas fa-plus"></i>Add</button>
+    </div>
+    <ul id="taskList"></ul>
+    <!--<div class="task-info">
+      <p><span id="remainingTasks"></span> tasks remaining</p>
+      <p><span id="completedTasks"></span> tasks completed</p>
+      <button id="clearCompletedBtn">Clear Completed</button>
+    </div>
+  </div>-->
+
+  <script src="script.js"></script>
+</body>
+</html>
