@@ -16,17 +16,32 @@ function displayTasks() {
 
   tasks.forEach(function(task, index) {
     const listItem = document.createElement('li');
-    listItem.textContent = task;
     listItem.classList.add('task-item');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.completed;
+    checkbox.addEventListener('click', function() {
+      listItem.classList.toggle('completed');
+      task.completed = checkbox.checked;
+      updateLocalStorage();
+    });
+
+    const label = document.createElement('label');
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(task.name));
+
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'buttons-container';
 
     const editButton = document.createElement('button');
     editButton.textContent = 'Edit';
     editButton.className = 'edit-button';
     editButton.addEventListener('click', function() {
-      const updatedTask = prompt('Enter the updated task:', task);
+      const updatedTask = prompt('Enter the updated task:', task.name);
 
       if (updatedTask !== null && updatedTask.trim() !== '') {
-        tasks[index] = updatedTask.trim();
+        tasks[index].name = updatedTask.trim();
         updateLocalStorage();
         displayTasks();
       }
@@ -41,21 +56,24 @@ function displayTasks() {
       displayTasks();
     });
 
-    const buttonsWrapper = document.createElement('div');
-    buttonsWrapper.classList.add('buttons-wrapper');
-    buttonsWrapper.appendChild(editButton);
-    buttonsWrapper.appendChild(deleteButton);
+    buttonsContainer.appendChild(editButton);
+    buttonsContainer.appendChild(deleteButton);
 
-    listItem.appendChild(buttonsWrapper);
+    listItem.appendChild(label);
+    listItem.appendChild(buttonsContainer);
     taskList.appendChild(listItem);
   });
 }
 
 // Event listener for the 'click' event on the add task button
 addTaskBtn.addEventListener('click', function() {
-  const task = taskInput.value.trim(); // Get the entered task
+  const taskName = taskInput.value.trim(); // Get the entered task
 
-  if (task !== '') {
+  if (taskName !== '') {
+    const task = {
+      name: taskName,
+      completed: false
+    };
     tasks.push(task); // Add the task to the tasks array
     updateLocalStorage(); // Update local storage
     displayTasks(); // Display the tasks
@@ -68,4 +86,17 @@ window.addEventListener('load', function() {
   displayTasks();
 });
 
-taskList.style.backgroundColor = '#CCFFFF';
+taskList.style.backgroundColor = '#CCFFFF'; // Add mark off tasks
+
+// CSS styles for the 'completed' class
+const style = document.createElement('style');
+style.textContent = `
+  .completed label {
+    text-decoration: line-through;
+  }
+  .buttons-container {
+    display: flex;
+    gap: 5px;
+  }
+`;
+document.head.appendChild(style);
