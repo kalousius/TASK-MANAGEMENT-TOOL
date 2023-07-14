@@ -32,11 +32,13 @@ function displayTasks() {
     label.appendChild(document.createTextNode(task.name));
 
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.className = 'buttons-container';
+    //buttonsContainer.className = '';
+    buttonsContainer.classList.add('add-remove-linethrough', 'buttons-container');
 
     const editButton = document.createElement('button');
     editButton.textContent = 'Edit';
     editButton.className = 'edit-button';
+    editButton.style.textDecoration='none';
     editButton.addEventListener('click', function() {
       const updatedTask = prompt('Enter the updated task:', task.name);
 
@@ -99,4 +101,4 @@ style.textContent = `
     gap: 5px;
   }
 `;
-document.head.appendChild(style);
+//document.head.appendChild(style);
