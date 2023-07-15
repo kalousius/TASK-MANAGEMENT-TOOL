@@ -81,6 +81,9 @@
     text-decoration: line-through;
     color: #808080;
   }
+  .add-remove-linethrough{
+    text-decoration: none;
+  }
   
   /* CSS styles for the button */
 #addTaskBtn {
